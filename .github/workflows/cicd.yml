@@ -16,9 +16,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Echo Docker image name
-      run: echo "docker.io/${{ secrets.DOCKER_USERNAME }}/prime-video-clone"
-
     - name: Build and push the Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
