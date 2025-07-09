@@ -9,7 +9,6 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +23,21 @@ jobs:
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy:
+    needs: build
+    runs-on : [aws_ec2]
+    
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull kelzceana/prime-video-clone:latest
+
+      - name: Delete old container
+        run: docker rm -f prime-video-clone-container
+
+      - name: Run new docker container
+        run: docker run -d -p 3000:3000 --name prime-video-clone-container kelzceana/prime-video-clone
+        
+
+
+
