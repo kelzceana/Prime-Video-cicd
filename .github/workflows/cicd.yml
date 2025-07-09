@@ -26,6 +26,7 @@ jobs:
   deploy:
     needs: build
     runs-on : [aws_ec2]
+    environment: Test
     steps:
       - name: Pull image from docker hub
         run: docker pull kelzceana/prime-video-app:latest
