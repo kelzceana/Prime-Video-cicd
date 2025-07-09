@@ -26,16 +26,15 @@ jobs:
   deploy:
     needs: build
     runs-on : [aws_ec2]
-    
     steps:
       - name: Pull image from docker hub
-        run: docker pull kelzceana/prime-video-clone:latest
+        run: docker pull kelzceana/prime-video-app:latest
 
       - name: Delete old container
-        run: docker rm -f prime-video-clone-container
+        run: docker rm -f prime-video-app-container
 
       - name: Run new docker container
-        run: docker run -d -p 3000:3000 --name prime-video-clone-container kelzceana/prime-video-clone
+        run: docker run -d -p 3000:3000 --name prime-video-app-container kelzceana/prime-video-app
         
 
 
