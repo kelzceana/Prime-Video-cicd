@@ -60,7 +60,7 @@ jobs:
         id: ec2_ip
         working-directory: terraform/
         run: |
-            echo "::set-output name=ec2_public_ip::$(terraform output ec2_public_ip)
+            echo "::set-output name=ec2_public_ip::$(terraform output ec2_public_ip)"
 
   deploy-ec2:
     needs: deploy-infra
