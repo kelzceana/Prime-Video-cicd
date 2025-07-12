@@ -33,6 +33,9 @@ jobs:
       EC2_HOST: ${{ secrets.EC2_HOST }}
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: setup terraform
         uses: hashicorp/setup-terraform@v2
         with:
