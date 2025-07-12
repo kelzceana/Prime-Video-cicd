@@ -27,10 +27,6 @@ jobs:
   deploy-infra:
     needs: build
     runs-on : ubuntu-latest
-    env:
-      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-      EC2_USER: ${{ secrets.EC2_USER }}
-      EC2_HOST: ${{ secrets.EC2_HOST }}
     
     steps:
       - name: Checkout code
@@ -52,7 +48,6 @@ jobs:
         working-directory: terraform/
         run: |
           terraform init
-          terraform destroy
           terraform plan
 
       - name: terraform apply
@@ -71,9 +66,17 @@ jobs:
   deploy-ec2:
     needs: deploy-infra
     runs-on: ubuntu-latest
+
+    env:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+
     steps:
-       - name: Deploy to EC2
-         run: |
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Deploy to EC2
+        run: |
           echo "$PRIVATE_KEY" > ec2-key.pem
           chmod 600 ec2-key.pem
           echo "Waiting for EC2 ($EC2_HOST) to be ready..."
