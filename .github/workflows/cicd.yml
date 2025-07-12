@@ -45,6 +45,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
+          terraform_wrapper: false
       
       - name: terraform init
         working-directory: terraform/
@@ -59,7 +60,6 @@ jobs:
       - name: terraform output
         id: ec2_ip
         working-directory: terraform/
-        shell: bash
         run: |
             IP=$(terraform output -raw ec2_public_ip | tr -d '\r')
             echo "ec2_public_ip=$IP" >> $GITHUB_OUTPUT
