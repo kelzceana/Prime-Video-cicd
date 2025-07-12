@@ -86,6 +86,8 @@ jobs:
           echo "Waiting for EC2 ($EC2_HOST) to be ready..."
           sleep 30
           ssh -o StrictHostKeyChecking=no -i ec2-key.pem $EC2_USER@$EC2_HOST << 'EOF'
+            sudo apt update
+            sudo apt install docker.io -y
             docker pull kelzceana/prime-video-app:latest
             docker rm -f prime-video-app-container || true
             docker run -d -p 3000:3000 --name prime-video-app-container kelzceana/prime-video-app:latest
