@@ -75,6 +75,8 @@ jobs:
          run: |
           echo "$PRIVATE_KEY" > ec2-key.pem
           chmod 600 ec2-key.pem
+          echo "Waiting for EC2 ($EC2_HOST) to be ready..."
+          sleep 30
           ssh -o StrictHostKeyChecking=no -i ec2-key.pem $EC2_USER@$EC2_HOST << 'EOF'
             docker pull kelzceana/prime-video-app:latest
             docker rm -f prime-video-app-container || true
