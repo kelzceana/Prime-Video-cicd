@@ -90,10 +90,9 @@ jobs:
             sudo yum install -y docker
             sudo systemctl enable docker
             sudo systemctl start docker
-            sudo usermod -aG docker ec2-user
-            docker pull kelzceana/prime-video-app:latest
-            docker rm -f prime-video-app-container || true
-            docker run -d -p 3000:3000 --name prime-video-app-container kelzceana/prime-video-app:latest
+            sudo docker pull kelzceana/prime-video-app:latest
+            sudo docker rm -f prime-video-app-container || true
+            sudo docker run -d -p 3000:3000 --name prime-video-app-container kelzceana/prime-video-app:latest
           EOF
         
 
